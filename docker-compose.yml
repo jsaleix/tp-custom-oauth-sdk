@@ -1,0 +1,18 @@
+services:
+  sdk-oauth-server:
+    image: php:alpine
+    volumes:
+      - ./oauth-server:/home/root
+    working_dir: /home/root
+    ports:
+      - 8081:8081
+    command: "php -S 0.0.0.0:8081"
+
+  sdk-client:
+    image: php:alpine
+    volumes:
+      - ./client:/home/root
+    working_dir: /home/root
+    ports:
+      - 8082:8082
+    command: "php -S 0.0.0.0:8082"
