@@ -11,7 +11,7 @@ class OauthSDK
         {
             //includeProvider($param);
             $provider = $this->createProvider($param);
-            if($provider){ $this->provider[] = $provider; }
+            if($provider){ $this->providers[] = $provider; }
         }
     }
 
