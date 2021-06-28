@@ -3,7 +3,7 @@ namespace Sdk\Provider;
 
 use Sdk\provider\ProviderInterface;
 
-class GoogleProvider implements ProviderInterface
+class GoogleProvider extends Provider implements ProviderInterface
 {
 
 }

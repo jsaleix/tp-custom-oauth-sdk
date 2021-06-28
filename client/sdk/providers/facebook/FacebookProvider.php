@@ -3,9 +3,9 @@ namespace Sdk\Provider;
 
 use Sdk\provider\ProviderInterface;
 
-class FacebookProvider implements ProviderInterface
+class FacebookProvider extends Provider implements ProviderInterface
 {
-
+    
 }
 
 ?>
