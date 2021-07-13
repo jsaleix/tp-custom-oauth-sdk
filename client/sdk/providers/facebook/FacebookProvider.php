@@ -13,7 +13,16 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function handleCodeType(): void{
-        echo 'Yes';
+        //print_r($_GET);
+        $params = "client_id=".$this->client_id.
+        "&redirect_uri=http://localhost:8082/facebook/success
+        &client_secret=".$this->client_secret."
+        &code=".$_GET['code'];
+        $url = "https://graph.facebook.com/v11.0/oauth/access_token?".$params;
+        echo $url;
+        /*$fbResponse = file_get_contents('https://graph.facebook.com/v11.0/oauth/access_token?'.$params);
+        print_r($fbResponse);*/
+        //print_r($_GET);
         //handle
     }
 
@@ -26,14 +35,27 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getLinks(): string{
+        $params = "client_id=".$this->client_id."&redirect_uri=http://localhost:8082/facebook/success&state=sqdsdsqdqsd";
         $html = '<h2>Login with Facebook</h2>';
-        $html .= '<a href="/facebook">login</a>';
+        $html .= '<a href="https://www.facebook.com/v11.0/dialog/oauth?'.$params.'">login</a>';
         $html .= "<hr>";
         return $html;
     }
 
     public function getErrorMessage(): string{
         
+    }
+
+    public function handleRoute($route = null): ?array{
+        switch($route){
+            case 'success':
+                return $this->handleCodeType();
+            case 'error':
+                return $this->getErrorMessage();
+            case 'token':
+                return $this->getInfos();
+        }
+        return null;
     }
 }
 

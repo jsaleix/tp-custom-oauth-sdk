@@ -8,6 +8,7 @@ interface ProviderInterface
     public function getInfos(string $token): array;
     public function getLinks(): string;
     public function getErrorMessage(): string;
+    public function handleRoute($route = null): ?array;
 }
 
 
