@@ -1,6 +1,5 @@
 <?php
-namespace Sdk\Provider;
-
+namespace Sdk\Providers;
 
 interface ProviderInterface
 {
@@ -9,9 +8,5 @@ interface ProviderInterface
     public function getInfos(string $token): array;
 }
 
-abstract class Provider{
-    protected string $client_id;
-    protected string $client_secret;
-}
 
 ?>
