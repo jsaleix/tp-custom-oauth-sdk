@@ -25,7 +25,7 @@ class OauthSDK
             $rawProviderName = ucfirst(mb_strtolower($key)) ;
             $providerName = 'Sdk\\Providers\\' . $rawProviderName . 'Provider';
             //$providerName = ucfirst(mb_strtolower($key)) . 'Provider';
-            $provider = new $providerName(array_keys($values)[0], array_keys($values)[1]);
+            $provider = new $providerName(array_values($values)[0], array_values($values)[1]);
             self::$providers[$rawProviderName] = $provider;
             return true;
         }
