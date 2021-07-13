@@ -41,6 +41,11 @@ class CustomProvider extends ProviderAbstract implements ProviderInterface
         $html .= "<hr>";
         return $html;
     }
+
+    public function getErrorMessage(): string{
+        
+    }
+
 }
 
 ?>
