@@ -25,7 +25,10 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getLinks(): string{
-        return '<a href="/github">Login</a>';
+        $html = '<h2>Login with Github</h2>';
+        $html .= '<a href="/github">login</a>';
+        $html .= "<hr>";
+        return $html;
     }
 }
 

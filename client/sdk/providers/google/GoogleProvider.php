@@ -24,7 +24,10 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getLinks(): string{
-        return '<a href="/google">Login</a>';
+        $html = '<h2>Login with Google</h2>';
+        $html .= '<a href="/google">login</a>';
+        $html .= "<hr>";
+        return $html;
     }
 }
 

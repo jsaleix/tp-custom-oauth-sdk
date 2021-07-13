@@ -1,5 +1,5 @@
 <?php
-const CLIENT_ID = "client_606c5bfe886e14.91787997";
+const CLIENT_ID     = "client_606c5bfe886e14.91787997";
 const CLIENT_SECRET = "2ce690b11c94aca36d9ec493d9121f9dbd5c96a5";
 
 

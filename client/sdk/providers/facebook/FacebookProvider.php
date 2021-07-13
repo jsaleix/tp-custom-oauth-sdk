@@ -25,7 +25,10 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getLinks(): string{
-        return '<a href="/facebook">Login</a>';
+        $html = '<h2>Login with Facebook</h2>';
+        $html .= '<a href="/facebook">login</a>';
+        $html .= "<hr>";
+        return $html;
     }
 }
 

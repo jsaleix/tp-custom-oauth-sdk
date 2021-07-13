@@ -26,7 +26,20 @@ class CustomProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getLinks(): string{
-        return '<a href="/custom">Login</a>';
+        $html = '<h2>Custom Oauth-server</h2>';
+        $html .= '<p>Login with password</p><br>';
+        $html .= "<form method='POST' action='/password'>
+                    <input type='text' name='username' placeholder='username'/>
+                    <input type='password' name='password' placeholder='password'/>
+                    <input type='submit' value='Login'/>
+                <form><br>";
+        $html .= '<p>Login with Auth-code</p><br>';
+        $html .= "<a href='http://localhost:8081/auth?"
+        . "response_type=code"
+        . "&client_id=" . $this->client_id
+        . "&scope=basic&state=dsdsfsfds'>Login with oauth-server</a><br>";
+        $html .= "<hr>";
+        return $html;
     }
 }
 
