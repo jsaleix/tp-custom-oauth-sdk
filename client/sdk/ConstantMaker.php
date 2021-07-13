@@ -47,6 +47,11 @@ class ConstantMaker
 			$associativeData[$OAuthName][$key] = $value;
 
 		}
+		foreach($associativeData as $key => $value){
+			if(count($value) < 2){
+				unset($associativeData[$key]);
+			}
+		}
 		print_r($associativeData);
 	}
 
