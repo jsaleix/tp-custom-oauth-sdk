@@ -5,7 +5,7 @@ namespace Sdk;
 class ConstantMaker
 {
 
-	private $envPath = ".env";
+	private $envPath = __DIR__."/.env";
 	private $data = [];
 
 	public function __construct(){
@@ -20,27 +20,8 @@ class ConstantMaker
 			// .env.prod ou .env.dev
 			$this->parseEnv($this->envPath.".".$this->data["ENV"]);
 		}
-
-
-		$this->defineConstants();
-	}
-
-
-	public function defineConstants(){
-		foreach ($this->data as $key => $value) {
-			self::defineConstant($key, $value);
-		}
-	}
-
-	public static function defineConstant($key, $value){
-		
-			$key = str_replace(" ", "_", mb_strtoupper(trim($key)));
-			if(!defined($key)){
-				define($key, $value);
-			}else{
-				die("La constante ".$key." existe déjà");
-			}
-		
+		//var_dump($this->data);
+		$this->associateEnvVariables();
 	}
 
 
@@ -55,10 +36,18 @@ class ConstantMaker
 				if(!empty($results[1]) && !empty($results[2])){
 					$this->data[$results[1]] = trim($results[2]);
 				}
-
-
 			}
 		}
+	}
+
+	private function associateEnvVariables(){
+		$associativeData = [];
+		foreach($this->data as $key => $value){
+			$OAuthName = explode("_",$key)[0];
+			$associativeData[$OAuthName][$key] = $value;
+
+		}
+		print_r($associativeData);
 	}
 
 

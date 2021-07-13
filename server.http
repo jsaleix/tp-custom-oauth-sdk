@@ -25,3 +25,6 @@ GET http://localhost:8081/token?grant_type=client_credentials&client_id=client_6
 ###
 GET http://localhost:8081/api
 Authorization: Bearer token_6087ee3467e8d1.48899995
+
+###
+GET http://localhost:8082
