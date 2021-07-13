@@ -7,6 +7,7 @@ interface ProviderInterface
     public function handlePasswordType(): void;
     public function getInfos(string $token): array;
     public function getLinks(): string;
+    public function getErrorMessage(): string;
 }
 
 

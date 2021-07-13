@@ -27,4 +27,4 @@ GET http://localhost:8081/api
 Authorization: Bearer token_6087ee3467e8d1.48899995
 
 ###
-GET http://localhost:8082
+GET http://localhost:8082/google/success

@@ -42,17 +42,28 @@ class OauthSDK
 
     public function handleAuth()
     {
-        $typeAuth = null;
-        if($typeAuth){
-            switch($typeAuth)
-            {
-    
-            }
-        }else{
-            self::getAllLinks();
-        }
+        $route = strtok($_SERVER['REQUEST_URI'], '?');
+        $route = explode('/', $route);
+        $route = array_slice($route, 1);
 
-        echo 'handling';
+        if($route[0]){
+            $typeAuth = ucfirst(mb_strtolower(str_replace('/', '', $route[0] )));
+            $route = array_slice($route, 1);
+            $route = implode('/', $route);
+            if(array_key_exists($typeAuth, self::$providers)){
+                switch($route){
+                    case 'success':
+                        return self::$providers[$typeAuth]->handleCodeType();
+                    case 'error':
+                        return self::$providers[$typeAuth]->getErrorMessage();
+                    case 'password':
+                        return self::$providers[$typeAuth]->handlePasswordType();
+                    default:
+                        break;
+                }
+            }
+        }
+        self::getAllLinks();
     }
 
 

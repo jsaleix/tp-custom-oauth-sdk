@@ -13,6 +13,7 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function handleCodeType(): void{
+        echo 'Yes';
         //handle
     }
 
@@ -29,6 +30,10 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
         $html .= '<a href="/facebook">login</a>';
         $html .= "<hr>";
         return $html;
+    }
+
+    public function getErrorMessage(): string{
+        
     }
 }
 
