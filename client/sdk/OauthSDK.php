@@ -5,7 +5,7 @@ use Sdk\ConstantGetter;
 
 class OauthSDK 
 {
-    private static array $providers;
+    private array $providers;
 
     public function __construct(){//array $params
         $params = ConstantGetter::initialize();
@@ -26,15 +26,15 @@ class OauthSDK
             $providerName = 'Sdk\\Providers\\' . $rawProviderName . 'Provider';
             //$providerName = ucfirst(mb_strtolower($key)) . 'Provider';
             $provider = new $providerName(array_values($values)[0], array_values($values)[1]);
-            self::$providers[$rawProviderName] = $provider;
+            $this->providers[$rawProviderName] = $provider;
             return true;
         }
         return false;
     }
     
-    public static function getAllLinks()
+    public function getAllLinks()
     {
-        foreach(self::$providers as $provider)
+        foreach($this->providers as $provider)
         {
             echo $provider->getLinks() . PHP_EOL;
         }
@@ -49,8 +49,8 @@ class OauthSDK
             $typeAuth = ucfirst(mb_strtolower(str_replace('/', '', $route[0] )));
             $route = array_slice($route, 1);
             $route = implode('/', $route);
-            if(array_key_exists($typeAuth, self::$providers)){
-                return self::$providers[$typeAuth]->handleRoute($route);
+            if(array_key_exists($typeAuth, $this->providers)){
+                return $this->providers[$typeAuth]->handleRoute($route);
             }
         }
         self::getAllLinks();

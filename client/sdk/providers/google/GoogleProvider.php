@@ -94,7 +94,7 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
 
         if(!empty($_GET['error'])){ 
             echo 'Une erreur est survenue';
-            return null;;
+            return null;
         }
 
         $this->handleCodeType($_GET);

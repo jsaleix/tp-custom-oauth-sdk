@@ -33,11 +33,11 @@ class CustomProvider extends ProviderAbstract implements ProviderInterface
                     <input type='password' name='password' placeholder='password'/>
                     <input type='submit' value='Login'/>
                 <form><br>";
-        $html .= '<p>Login with Auth-code</p><br>';
+        $html .= '<h2>Login with Auth-code</h2><br>';
         $html .= "<a href='http://localhost:8081/auth?"
         . "response_type=code"
         . "&client_id=" . $this->client_id
-        . "&scope=basic&state=dsdsfsfds'>Login with oauth-server</a><br>";
+        . "&scope=basic&state=dsdsfsfds'>Login</a><br>";
         $html .= "<hr>";
         return $html;
     }
