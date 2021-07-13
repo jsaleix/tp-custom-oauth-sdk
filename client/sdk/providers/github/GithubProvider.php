@@ -13,10 +13,34 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function handleCodeType(): void{
-        //print_r($_GET);
-        $link = "client_id=".$this->client_id."&client_secret=".$this->client_secret."&code=".$_GET['code']."&redirect_uri=http://localhost:8082/github/token";
-        echo $link;
-        //handle
+        $content = http_build_query(array(
+            'client_id' => $this->client_id,
+            'client_secret' => $this->client_secret,
+            'code' => $_GET['code'],
+            'redirect_uri' => 'http://localhost:8082/github/token'
+        ));
+        $context = stream_context_create(array(
+            'http' => array(
+                'method' => 'POST',
+                'header'=> "Content-type: application/x-www-form-urlencoded\r\n",
+                'content'=> $content,
+            )
+            ));
+        $githubResponse = file_get_contents('https://github.com/login/oauth/access_token', null, $context);
+        $githubResponse  = explode("&", $githubResponse );
+        unset($githubResponse[1]);
+        foreach($githubResponse as $key => $value){
+            $cleanArray = explode("=", $value);
+            $githubResponse[$cleanArray[0]] = $cleanArray[1];
+            unset($githubResponse[$key]);
+            //$githubResponse[$key]
+        }
+        /*foreach($githubResponse as $key => $name){
+            $githubResponse[$key] = $name;
+        }*/
+        print_r($githubResponse);
+        //$Auth = ;
+        
     }
 
     public function handlePasswordType(): void{
