@@ -25,21 +25,17 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
                 'header'=> "Content-type: application/x-www-form-urlencoded\r\n",
                 'content'=> $content,
             )
-            ));
+        ));
         $githubResponse = file_get_contents('https://github.com/login/oauth/access_token', null, $context);
-        $githubResponse  = explode("&", $githubResponse );
+        $this->sanatizeTokenResponse($githubResponse);
+        /*$githubResponse  = explode("&", $githubResponse );
         unset($githubResponse[1]);
         foreach($githubResponse as $key => $value){
             $cleanArray = explode("=", $value);
             $githubResponse[$cleanArray[0]] = $cleanArray[1];
             unset($githubResponse[$key]);
-            //$githubResponse[$key]
-        }
-        /*foreach($githubResponse as $key => $name){
-            $githubResponse[$key] = $name;
         }*/
         print_r($githubResponse);
-        //$Auth = ;
         
     }
 
@@ -61,6 +57,15 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
 
     public function getErrorMessage(): string{
         
+    }
+
+    private function sanatizeTokenResponse(string &$array): void{
+        $array  = explode("&", $array );
+        foreach($array as $key => $value){
+            $cleanArray = explode("=", $value);
+            $array[$cleanArray[0]] = $cleanArray[1];
+            unset($array[$key]);
+        }
     }
 }
 
