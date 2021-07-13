@@ -38,6 +38,10 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
     public function getErrorMessage(): string{
         
     }
+
+    public function handleRoute($route = null): ?array{
+        return null;
+    }
 }
 
 ?>

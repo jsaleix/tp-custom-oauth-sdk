@@ -46,6 +46,10 @@ class CustomProvider extends ProviderAbstract implements ProviderInterface
         
     }
 
+    public function handleRoute($route = null): ?array{
+        return null;
+    }
+
 }
 
 ?>
