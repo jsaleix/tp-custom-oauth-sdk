@@ -28,7 +28,8 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
         ));
         $githubResponse = file_get_contents('https://github.com/login/oauth/access_token', null, $context);
         $this->sanatizeTokenResponse($githubResponse);
-        print_r($githubResponse);
+        //print_r($githubResponse);
+        $this->getInfos($githubResponse['access_token']);
         
     }
 
@@ -36,9 +37,23 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
         //handle
     }
 
-    public function getInfos($token): array{
-        echo "INNFOOOO";
-        //infos
+    public function getInfos(string $token): array{
+        $url = "https://api.github.com/user";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $headers = array(
+        "Accept: application/json",
+        "Authorization: token ".$token,
+        "user-agent: sdk"
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($curl);
+        curl_close($curl);
+        $user = json_decode($result, true);
+        var_dump($user);
     }
 
     public function getLinks(): string{
