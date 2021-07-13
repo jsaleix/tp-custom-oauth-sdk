@@ -25,21 +25,10 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
                 'header'=> "Content-type: application/x-www-form-urlencoded\r\n",
                 'content'=> $content,
             )
-            ));
+        ));
         $githubResponse = file_get_contents('https://github.com/login/oauth/access_token', null, $context);
-        $githubResponse  = explode("&", $githubResponse );
-        unset($githubResponse[1]);
-        foreach($githubResponse as $key => $value){
-            $cleanArray = explode("=", $value);
-            $githubResponse[$cleanArray[0]] = $cleanArray[1];
-            unset($githubResponse[$key]);
-            //$githubResponse[$key]
-        }
-        /*foreach($githubResponse as $key => $name){
-            $githubResponse[$key] = $name;
-        }*/
+        $this->sanatizeTokenResponse($githubResponse);
         print_r($githubResponse);
-        //$Auth = ;
         
     }
 
@@ -48,13 +37,14 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getInfos($token): array{
+        echo "INNFOOOO";
         //infos
     }
 
     public function getLinks(): string{
-        $link = "client_id=".$this->client_id."&redirect_uri=http://localhost:8082/github/success&state=sqdsdsqdqsd";
+        $params = "client_id=".$this->client_id."&redirect_uri=\"http://localhost:8082/github/success\"&state=sqdsdsqdqsd";
         $html = '<h2>Login with Github</h2>';
-        $html .= '<a href="https://github.com/login/oauth/authorize?'.$link.'">login</a>';
+        $html .= '<a href="https://github.com/login/oauth/authorize?'.$params.'">login</a>';
         $html .= "<hr>";
         return $html;
     }
@@ -63,7 +53,24 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
         
     }
 
+    private function sanatizeTokenResponse(string &$array): void{
+        $array  = explode("&", $array );
+        foreach($array as $key => $value){
+            $cleanArray = explode("=", $value);
+            $array[$cleanArray[0]] = $cleanArray[1];
+            unset($array[$key]);
+        }
+    }
+    
     public function handleRoute($route = null): ?array{
+        switch($route){
+            case 'success':
+                return $this->handleCodeType();
+            case 'error':
+                return $this->getErrorMessage();
+            case '':
+                return $this->getInfos();
+        }
         return null;
     }
 }

@@ -45,7 +45,6 @@ class OauthSDK
         $route = strtok($_SERVER['REQUEST_URI'], '?');
         $route = explode('/', $route);
         $route = array_slice($route, 1);
-
         if($route[0]){
             $typeAuth = ucfirst(mb_strtolower(str_replace('/', '', $route[0] )));
             $route = array_slice($route, 1);
