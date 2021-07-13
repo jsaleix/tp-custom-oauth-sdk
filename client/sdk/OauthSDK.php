@@ -15,13 +15,6 @@ class OauthSDK
             //includeProvider($param);
             $provider = $this->createProvider($key, $values);
         }
-        var_dump(self::$providers);
-
-    }
-
-    public function getAllLinks()
-    {
-        echo 'test';
     }
 
     private function createProvider(String $key, array $values): bool
@@ -39,6 +32,30 @@ class OauthSDK
         return false;
     }
     
+    public static function getAllLinks()
+    {
+        foreach(self::$providers as $provider)
+        {
+            echo $provider->getLinks() . PHP_EOL;
+        }
+    }
+
+    public function handleAuth()
+    {
+        $typeAuth = null;
+        if($typeAuth){
+            switch($typeAuth)
+            {
+    
+            }
+        }else{
+            self::getAllLinks();
+        }
+
+        echo 'handling';
+    }
+
+
 }
 
 ?>

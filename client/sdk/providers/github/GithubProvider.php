@@ -23,6 +23,10 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
     public function getInfos($token): array{
         //infos
     }
+
+    public function getLinks(): string{
+        return '<a href="/github">Login</a>';
+    }
 }
 
 ?>

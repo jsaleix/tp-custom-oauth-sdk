@@ -23,6 +23,10 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
     public function getInfos($token): array{
         //infos
     }
+
+    public function getLinks(): string{
+        return '<a href="/facebook">Login</a>';
+    }
 }
 
 ?>

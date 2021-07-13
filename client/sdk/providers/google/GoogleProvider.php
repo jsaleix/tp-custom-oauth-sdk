@@ -22,6 +22,10 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
     public function getInfos($token): array{
         //infos
     }
+
+    public function getLinks(): string{
+        return '<a href="/google">Login</a>';
+    }
 }
 
 ?>
