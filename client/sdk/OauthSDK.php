@@ -7,12 +7,12 @@ class OauthSDK
 {
     private array $providers;
 
-    public function __construct(){//array $params
+    public function __construct(){
         $params = ConstantGetter::initialize();
+        if(!$params){ throw new \Error('No oauth2 provider set. Verify your env file.'); }
         if(count($params) < 1){ throw new \Error('Missing parameters (at least one key in array)');}
         foreach($params as $key => $values)
         {
-            //includeProvider($param);
             $provider = $this->createProvider($key, $values);
         }
     }
@@ -42,6 +42,9 @@ class OauthSDK
 
     public function handleAuth()
     {
+        if(count($this->providers) == 0){
+            throw new Exception('No oauth2 provider set. Verify your env file.');
+        }
         $route = strtok($_SERVER['REQUEST_URI'], '?');
         $route = explode('/', $route);
         $route = array_slice($route, 1);

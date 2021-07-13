@@ -48,10 +48,6 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
 
     }
 
-    public function handlePasswordType(): void{
-        //handle
-    }
-
     public function getInfos($data): ?array{
         $context = stream_context_create([
             'http' => [
@@ -82,7 +78,8 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getErrorMessage(): string{
-        
+        echo 'Une erreur est survenue';
+        return null;
     }
 
     public function handleRoute($route = null): ?array{
@@ -93,8 +90,7 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
         }
 
         if(!empty($_GET['error'])){ 
-            echo 'Une erreur est survenue';
-            return null;
+            $this->getErrorMessage();
         }
 
         $this->handleCodeType($_GET);

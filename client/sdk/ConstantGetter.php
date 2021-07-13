@@ -48,7 +48,7 @@ class ConstantGetter
 				unset($associativeData[$key]);
 			}
 		}
-		return $associativeData;
+		return count($associativeData) != 0 ? $associativeData : false;
 	}
 
 
