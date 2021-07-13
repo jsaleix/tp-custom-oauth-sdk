@@ -56,6 +56,8 @@ class OauthSDK
                         return self::$providers[$typeAuth]->handleCodeType();
                     case 'error':
                         return self::$providers[$typeAuth]->getErrorMessage();
+                    case 'token':
+                        return self::$providers[$typeAuth]->getInfos();
                     case 'password':
                         return self::$providers[$typeAuth]->handlePasswordType();
                     default:

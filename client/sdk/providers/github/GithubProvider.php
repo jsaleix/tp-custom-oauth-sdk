@@ -13,6 +13,9 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function handleCodeType(): void{
+        //print_r($_GET);
+        $link = "client_id=".$this->client_id."&client_secret=".$this->client_secret."&code=".$_GET['code']."&redirect_uri=http://localhost:8082/github/token";
+        echo $link;
         //handle
     }
 
@@ -25,10 +28,10 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getLinks(): string{
-        $html = "client_id=".$this->client_id."&redirect_uri=http://localhost/github/success&state=sqdsdsqdqsd";
-        /*$html = '<h2>Login with Github</h2>';
-        $html .= '<a href="https://github.com/login/oauth/authorize">login</a>';
-        $html .= "<hr>";*/
+        $link = "client_id=".$this->client_id."&redirect_uri=http://localhost:8082/github/success&state=sqdsdsqdqsd";
+        $html = '<h2>Login with Github</h2>';
+        $html .= '<a href="https://github.com/login/oauth/authorize?'.$link.'">login</a>';
+        $html .= "<hr>";
         return $html;
     }
 
