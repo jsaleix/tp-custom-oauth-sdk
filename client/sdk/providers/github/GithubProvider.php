@@ -42,7 +42,7 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getLinks(): string{
-        $params = "client_id=".$this->client_id."&redirect_uri=\"http://localhost:8082/github/success\"&state=sqdsdsqdqsd";
+        $params = "client_id=".$this->client_id."&redirect_uri=http://localhost:8082/github/success&state=sqdsdsqdqsd";
         $html = '<h2>Login with Github</h2>';
         $html .= '<a href="https://github.com/login/oauth/authorize?'.$params.'">login</a>';
         $html .= "<hr>";
