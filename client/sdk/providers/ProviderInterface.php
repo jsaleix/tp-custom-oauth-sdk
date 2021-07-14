@@ -3,9 +3,8 @@ namespace Sdk\Providers;
 
 interface ProviderInterface
 {
-    //public function handleCodeType(): void;
-    //public function getInfos(string $token): ?array;
     public function getLinks(): string;
+    public function getErrorMessage(): void;
     public function handleRoute($route = null): ?array;
 }
 

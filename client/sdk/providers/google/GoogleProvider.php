@@ -73,9 +73,8 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
         return $html;
     }
 
-    public function getErrorMessage(): string{
+    public function getErrorMessage(): void{
         echo 'Une erreur est survenue';
-        return null;
     }
 
     public function handleRoute($route = null): ?array{

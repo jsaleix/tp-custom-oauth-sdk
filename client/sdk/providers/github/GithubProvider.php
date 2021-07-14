@@ -61,8 +61,8 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
         return $html;
     }
 
-    public function getErrorMessage(): string{
-        
+    public function getErrorMessage(): void{
+        echo 'Une erreur est survenue';
     }
 
     private function sanatizeTokenResponse(string &$array): void{
@@ -75,13 +75,14 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
     }
     
     public function handleRoute($route = null): ?array{
+        if(!empty($_GET['error'])){ 
+            $this->getErrorMessage();
+        }
         switch($route){
             case 'success':
                 return $this->handleCodeType();
             case 'error':
                 return $this->getErrorMessage();
-            case '':
-                return $this->getInfos();
         }
         return null;
     }

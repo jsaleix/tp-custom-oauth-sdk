@@ -13,6 +13,5 @@ if(!empty($data)){
     echo '<br><br>';
     echo '########## DATA ###########';
     var_dump($data);
-
 }
 
