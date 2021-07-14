@@ -13,28 +13,61 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function handleCodeType(): void{
-        //print_r($_GET);
         $params = "client_id=".$this->client_id.
-        "&redirect_uri=https://localhost/facebook/success
-        &client_secret=".$this->client_secret."
-        &code=".$_GET['code'];
+        "&redirect_uri=https://localhost/facebook/success&client_secret=".$this->client_secret."&code=".$_GET['code'];
         $url = "https://graph.facebook.com/v11.0/oauth/access_token?".$params;
-        $fbResponse = file_get_contents('https://graph.facebook.com/v11.0/oauth/access_token?'.$params);
+
+        $fbResponse = file_get_contents($url.$params);
         $fbResponse = json_decode($fbResponse, true);
+
         if(!empty($fbResponse['access_token'])){
-            $this->getInfos($fbResponse);
+            $this->getId($fbResponse['access_token']);
         }
-        //print_r($_GET);
-        //handle
+    }
+    
+    public function getId($token): void{
+        $url = "https://graph.facebook.com/me?fields=id&access_token=" . $token;
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $headers = array(
+            "Accept: application/json",
+            "Authorization: Bearer ".$token,
+            "user-agent: sdk"
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($curl);
+        curl_close($curl);
+        $user = json_decode($result, true);
+        if(!empty($user['id'])){
+            $this->getInfos($user['id'], $token);
+        }
     }
 
-    public function handlePasswordType(): void{
-        //handle
+    public function getInfos($id, $token): array{
+        $url = "https://graph.facebook.com/v11.0/$id";
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $headers = array(
+        "Accept: application/json",
+        "Authorization: Bearer ". $token,
+        "user-agent: sdk"
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($curl);
+        curl_close($curl);
+        $user = json_decode($result, true);
+        var_dump($user);
+
     }
 
-    public function getInfos($token): array{
-        print_r($token);
-    }
 
     public function getLinks(): string{
         $params = "client_id=".$this->client_id."&redirect_uri=https://localhost/facebook/success&state=sqdsdsqdqsd";
