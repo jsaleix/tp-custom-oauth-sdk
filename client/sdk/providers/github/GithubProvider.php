@@ -17,7 +17,7 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
             'client_id' => $this->client_id,
             'client_secret' => $this->client_secret,
             'code' => $_GET['code'],
-            'redirect_uri' => 'http://localhost:8082/github/token'
+            'redirect_uri' => 'https://localhost/github/token'
         ));
         $context = stream_context_create(array(
             'http' => array(
@@ -57,7 +57,7 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getLinks(): string{
-        $params = "client_id=".$this->client_id."&redirect_uri=http://localhost:8082/github/success&state=sqdsdsqdqsd";
+        $params = "client_id=".$this->client_id."&redirect_uri=https://localhost/github/success&state=sqdsdsqdqsd";
         $html = '<h2>Login with Github</h2>';
         $html .= '<a href="https://github.com/login/oauth/authorize?'.$params.'">login</a>';
         $html .= "<hr>";
