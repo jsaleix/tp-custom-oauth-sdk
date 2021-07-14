@@ -17,7 +17,7 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
         $data = 'code=' . $code.
             '&client_id='.  $this->client_id.
             '&client_secret=' . $this->client_secret.
-            '&redirect_uri='.('http://localhost:8082/google').
+            '&redirect_uri='.('https://localhost/google').
             '&grant_type=authorization_code';
 
         $curl = curl_init();
@@ -69,7 +69,7 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
         $link.= "&access_type=offline";
         $link.= "&include_granted_scopes=true";
         $link.= "&response_type=code";
-        $link.= "&state=". $state ."&redirect_uri=" . urlencode('http://localhost:8082/google') . "&client_id=" . $this->client_id;
+        $link.= "&state=". $state ."&redirect_uri=" . urlencode('https://localhost/google') . "&client_id=" . $this->client_id;
         
         $html = '<h2>Login with Google</h2>';
         $html .= '<a href='. $link .'>login</a>';
