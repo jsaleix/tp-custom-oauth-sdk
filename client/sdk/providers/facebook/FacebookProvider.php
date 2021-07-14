@@ -19,9 +19,11 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
         &client_secret=".$this->client_secret."
         &code=".$_GET['code'];
         $url = "https://graph.facebook.com/v11.0/oauth/access_token?".$params;
-        echo $url;
-        /*$fbResponse = file_get_contents('https://graph.facebook.com/v11.0/oauth/access_token?'.$params);
-        print_r($fbResponse);*/
+        $fbResponse = file_get_contents('https://graph.facebook.com/v11.0/oauth/access_token?'.$params);
+        $fbResponse = json_decode($fbResponse, true);
+        if(!empty($fbResponse['access_token'])){
+            $this->getInfos($fbResponse);
+        }
         //print_r($_GET);
         //handle
     }
@@ -31,7 +33,7 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getInfos($token): array{
-        //infos
+        print_r($token);
     }
 
     public function getLinks(): string{
