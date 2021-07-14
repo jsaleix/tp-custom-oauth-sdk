@@ -15,7 +15,7 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
     public function handleCodeType(): void{
         //print_r($_GET);
         $params = "client_id=".$this->client_id.
-        "&redirect_uri=http://localhost:8082/facebook/success
+        "&redirect_uri=https://localhost/facebook/success
         &client_secret=".$this->client_secret."
         &code=".$_GET['code'];
         $url = "https://graph.facebook.com/v11.0/oauth/access_token?".$params;
@@ -35,7 +35,7 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
     }
 
     public function getLinks(): string{
-        $params = "client_id=".$this->client_id."&redirect_uri=http://localhost:8082/facebook/success&state=sqdsdsqdqsd";
+        $params = "client_id=".$this->client_id."&redirect_uri=https://localhost/facebook/success&state=sqdsdsqdqsd";
         $html = '<h2>Login with Facebook</h2>';
         $html .= '<a href="https://www.facebook.com/v11.0/dialog/oauth?'.$params.'">login</a>';
         $html .= "<hr>";
