@@ -7,10 +7,6 @@ use Sdk\Providers\ProviderAbstract;
 
 class GithubProvider extends ProviderAbstract implements ProviderInterface
 {
-    public function __construct($client_id, $client_secret){
-        $this->client_id = $client_id;
-        $this->client_secret = $client_secret;
-    }
 
     public function handleCodeType(): void{
         $content = http_build_query(array(
@@ -54,6 +50,7 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
         curl_close($curl);
         $user = json_decode($result, true);
         var_dump($user);
+        return $user;
     }
 
     public function getLinks(): string{

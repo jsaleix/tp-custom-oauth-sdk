@@ -40,7 +40,7 @@ class OauthSDK
         }
     }
 
-    public function handleAuth()
+    public function handleAuth() : ?array
     {
         if(count($this->providers) == 0){
             throw new Exception('No oauth2 provider set. Verify your env file.');
