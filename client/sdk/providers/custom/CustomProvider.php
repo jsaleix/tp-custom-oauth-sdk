@@ -9,7 +9,7 @@ use Sdk\Providers\ProviderInterface;
 class CustomProvider extends ProviderAbstract implements ProviderInterface
 {
 
-    public function handleCodeType():void{
+    public function handleCodeType():?array{
         ["code" => $code, "state" => $state] = $_GET;
         $result = file_get_contents("http://sdk-oauth-server:8081/token?"
             . "grant_type=authorization_code"
@@ -20,14 +20,14 @@ class CustomProvider extends ProviderAbstract implements ProviderInterface
 
         if($token['access_token'])
         {
-            var_dump($this->getInfos($token['access_token']));
+            return ($this->getInfos($token['access_token']));
         }else{
             echo 'Une erreur est survenue';
-            return;
+            return null;
         }
     }
 
-    public function handlePasswordType():void{
+    public function handlePasswordType():?array{
         if( isset($_POST['username']) && isset($_POST['password']))
         {
             [ 'username' => $username, 'password' => $pwd ] = $_POST;
@@ -43,10 +43,10 @@ class CustomProvider extends ProviderAbstract implements ProviderInterface
             
             if(isset($content["access_token"]))
             {
-                echo var_dump($this->getInfos($content["access_token"]));
-                exit;
+                return $this->getInfos($content["access_token"]);
             }else{
                 echo 'Une erreur est survenue';
+                return null;
             }
         }
     }

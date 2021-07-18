@@ -7,7 +7,7 @@ use Sdk\Providers\ProviderAbstract;
 class GoogleProvider extends ProviderAbstract implements ProviderInterface
 {
 
-    public function handleCodeType($data): void{
+    public function handleCodeType($data): ?array{
         [ 'code' => $code, 'state' => $state, 'scope' => $scope ] = $data;
 
         $data = 'code=' . $code.
@@ -35,13 +35,12 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
         $err = curl_error($curl);
        
         curl_close($curl);
-        echo  '<br>';
 
         $res = json_decode($response, true);
         if(!empty($res['access_token'])){
-            $this->getInfos($res);
+            return $this->getInfos($res);
         }
-
+        return null;
     }
 
     public function getInfos($data): ?array{
@@ -53,8 +52,7 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
         ]);
         $result = file_get_contents("https://www.googleapis.com/oauth2/v1/userinfo?alt=json", false, $context);
         $user = json_decode($result, true);
-        var_dump($user);  
-        return null;
+        return $user;  
     }
 
     public function getLinks(): string{
@@ -88,8 +86,7 @@ class GoogleProvider extends ProviderAbstract implements ProviderInterface
             $this->getErrorMessage();
         }
 
-        $this->handleCodeType($_GET);
-        return null;
+        return $this->handleCodeType($_GET);
     }
 }
 

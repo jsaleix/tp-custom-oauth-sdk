@@ -8,6 +8,9 @@ use Sdk\Providers\ProviderAbstract;
 class FacebookProvider extends ProviderAbstract implements ProviderInterface
 {
     public function handleCodeType(): ?array{
+        if( !empty($_GET['error_code']) ){
+            return $this->getErrorMessage();
+        }
         $params = "client_id=".$this->client_id.
         "&redirect_uri=https://localhost/facebook/success&client_secret=".$this->client_secret."&code=".$_GET['code'];
         $url = "https://graph.facebook.com/v11.0/oauth/access_token?".$params;
@@ -31,7 +34,7 @@ class FacebookProvider extends ProviderAbstract implements ProviderInterface
         }
     }
 
-    public function getInfos($id, $token): array{
+    public function getInfos($id, $token): ?array{
         $url = "https://graph.facebook.com/v11.0/$id";
         $user = $this->makeCurlGetRequest($url, $token);
         if($id == null){

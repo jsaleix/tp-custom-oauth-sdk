@@ -8,10 +8,6 @@ class Autoload
 	public static function register(){
 
 		spl_autoload_register(function($class){
-			// App\Core\Router -> \Core\Router
-
-			//$class = str_ireplace(__NAMESPACE__, "", $class);
-
 			//  \Core\Router - >  Core\Router
 			$class = ltrim($class, "\\");
 
@@ -19,7 +15,6 @@ class Autoload
 			$class = str_replace("\\", "/", $class);
 
 			if( file_exists(dirname(__DIR__) . '/' . $class.".php")){
-				//include $class.".php";
 				include dirname(__DIR__) . '/' . $class.".php";
 			}
 			

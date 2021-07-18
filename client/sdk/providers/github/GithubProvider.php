@@ -8,7 +8,7 @@ use Sdk\Providers\ProviderAbstract;
 class GithubProvider extends ProviderAbstract implements ProviderInterface
 {
 
-    public function handleCodeType(): void{
+    public function handleCodeType(): ?array{
         $content = http_build_query(array(
             'client_id' => $this->client_id,
             'client_secret' => $this->client_secret,
@@ -24,16 +24,11 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
         ));
         $githubResponse = file_get_contents('https://github.com/login/oauth/access_token', null, $context);
         $this->sanatizeTokenResponse($githubResponse);
-        //print_r($githubResponse);
-        $this->getInfos($githubResponse['access_token']);
+        return $this->getInfos($githubResponse['access_token']);
         
     }
 
-    public function handlePasswordType(): void{
-        //handle
-    }
-
-    public function getInfos(string $token): array{
+    public function getInfos(string $token): ?array{
         $url = "https://api.github.com/user";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -49,7 +44,7 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
         $result = curl_exec($curl);
         curl_close($curl);
         $user = json_decode($result, true);
-        var_dump($user);
+        //var_dump($user);
         return $user;
     }
 

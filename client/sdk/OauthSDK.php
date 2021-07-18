@@ -24,7 +24,6 @@ class OauthSDK
             include __DIR__ . "/Providers/".mb_strtolower($key)."/" . ucfirst(mb_strtolower($key)) ."Provider.php";
             $rawProviderName = ucfirst(mb_strtolower($key)) ;
             $providerName = 'Sdk\\Providers\\' . $rawProviderName . 'Provider';
-            //$providerName = ucfirst(mb_strtolower($key)) . 'Provider';
             $provider = new $providerName(array_values($values)[0], array_values($values)[1]);
             $this->providers[$rawProviderName] = $provider;
             return true;
@@ -57,6 +56,7 @@ class OauthSDK
             }
         }
         self::getAllLinks();
+        return null;
     }
 
 
