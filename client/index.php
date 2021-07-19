@@ -1,15 +1,14 @@
 <?php
+
 require 'sdk/index.php';
 
-$sdk = new Sdk\OauthSDK([
-    "facebook" => [
-        "app_id" => "",
-        "app_secret" => ""
-    ],
-    "oauth-server" => [
-        "app_id" => "",
-        "app_secret" => ""
-    ],
-]);
+$sdk = new Sdk\OauthSDK();
+$data = $sdk->handleAuth();
 
-$sdk->getAllLinks();
+if(!empty($data)){
+    echo '<br><br>';
+    echo '########## DATA ###########';
+    echo '<br><br>';
+    print_r($data);
+}
+
