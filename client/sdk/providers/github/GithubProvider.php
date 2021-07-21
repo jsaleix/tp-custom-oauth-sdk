@@ -18,12 +18,21 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
         $context = stream_context_create(array(
             'http' => array(
                 'method' => 'POST',
-                'header'=> "Content-type: application/x-www-form-urlencoded\r\n",
+                'header'=> array(
+                    "Accept: application/json\r\n"
+                ),
                 'content'=> $content,
             )
         ));
         $githubResponse = file_get_contents('https://github.com/login/oauth/access_token', null, $context);
-        $this->sanatizeTokenResponse($githubResponse);
+
+        $githubResponse = json_decode($githubResponse, true);
+
+        if($githubResponse['error']){
+            $this->getErrorMessage();
+            return false;
+        }
+
         return $this->getInfos($githubResponse['access_token']);
         
     }
@@ -58,15 +67,6 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
 
     public function getErrorMessage(): void{
         echo 'Une erreur est survenue';
-    }
-
-    private function sanatizeTokenResponse(string &$array): void{
-        $array  = explode("&", $array );
-        foreach($array as $key => $value){
-            $cleanArray = explode("=", $value);
-            $array[$cleanArray[0]] = $cleanArray[1];
-            unset($array[$key]);
-        }
     }
     
     public function handleRoute($route = null): ?array{
